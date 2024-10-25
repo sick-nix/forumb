@@ -112,7 +112,7 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
-    'default_admin_username' => env('ADMIN_USERNAME', 'admin'),
-    'default_admin_email' => env('ADMIN_EMAIL', 'admin@fakemail.com'),
+    'admin_username' => env('ADMIN_USERNAME', 'admin'),
+    'admin_email' => env('ADMIN_EMAIL', 'admin@fakemail.com'),
     'admin_password' => env('ADMIN_PASSWORD')
 ];
