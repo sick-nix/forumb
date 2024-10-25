@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enums\RoleEnum;
 use App\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,6 +56,25 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => RoleEnum::class
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool {
+        return $this->role == RoleEnum::ADMIN->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isModerator(): bool {
+        return $this->role == RoleEnum::MODERATOR->value;
+    }
+
+    public function isUser(): bool {
+        return $this->role == RoleEnum::USER->value;
     }
 }
