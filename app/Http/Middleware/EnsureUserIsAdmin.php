@@ -16,7 +16,7 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->user()->role->value == RoleEnum::ADMIN->value) {
+        if($request->user()?->role->value == RoleEnum::ADMIN->value) {
             return $next($request);
         }
 
