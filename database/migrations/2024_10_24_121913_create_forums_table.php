@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->integer('category_id');
-            $table->integer('forum_id');
+            $table->unsignedBigInteger('parent_id');
             $table->timestamps();
+
+            $table->foreign('parent_id')->references('id')->on('forums');
+            $table->foreignId('category_id')->constrained();
         });
     }
 

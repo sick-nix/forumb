@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Enums\RoleEnum;
 use App\Traits\HasProfilePhoto;
+use App\Traits\HasRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -15,6 +17,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
     use HasProfilePhoto;
+    use HasRole;
 
     /**
      * The attributes that are mass assignable.
@@ -61,20 +64,16 @@ class User extends Authenticatable
     }
 
     /**
-     * @return bool
+     * Get all posts made by the user.
      */
-    public function isAdmin(): bool {
-        return $this->role == RoleEnum::ADMIN->value;
+    public function posts(): HasMany {
+        return $this->hasMany(Post::class);
     }
 
     /**
-     * @return bool
+     * Get all comments made by the user.
      */
-    public function isModerator(): bool {
-        return $this->role == RoleEnum::MODERATOR->value;
-    }
-
-    public function isUser(): bool {
-        return $this->role == RoleEnum::USER->value;
+    public function comments(): HasMany {
+        return $this->hasMany(Comment::class);
     }
 }
